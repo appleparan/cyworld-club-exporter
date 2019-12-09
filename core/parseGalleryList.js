@@ -20,7 +20,7 @@ module.exports = function (cookies, articles, callback) {
     for (var i = 0; i < itemList.length; i++) {
         var el = itemList[i];
 
-        var link = /item_seq=([0-9]+)/g.exec(el.attribs.href);
+        var link = /item_seq=(-*[0-9]+)/g.exec(el.attribs.href);
         result.articles.push(parseInt(link[1]));
     }
 

@@ -93,7 +93,10 @@ async.waterfall([
 
                                         res.on('end', function () {
                                             console.log('saved as - ' + newName);
-                                            fs.writeFileSync('./images/' + newName, imageStream.read());
+                                            fs.writeFileSync('./images/' + newName, imageStream.read(), (err) => {
+                                              if (err) throw err;
+                                              console.log('The file has been saved!');
+                                            });
                                             nextImage();
                                         });
                                     }).end();
@@ -124,7 +127,10 @@ async.waterfall([
                             });
                         }
 
-                        fs.writeFile("./result/" + articleName, JSON.stringify(json));
+                        fs.writeFile("./result/" + articleName, JSON.stringify(json), (err) => {
+                          if (err) throw err;
+                          console.log('The file has been saved!');
+                        });
 
                         setTimeout(function(){
                             next();

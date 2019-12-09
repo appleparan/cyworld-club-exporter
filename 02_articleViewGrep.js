@@ -85,7 +85,10 @@ async.waterfall([
                     },
 
                     function (cookies, articleNo, contents) {
-                        fs.writeFile('result/article_view_' + articleNo + '.txt', JSON.stringify(contents));
+                        fs.writeFile('result/article_view_' + articleNo + '.txt', JSON.stringify(contents), (err) => {
+                          if(err) throw err;
+                				  console.log('The file has been saved!');
+                        });
                         setTimeout(next, 1000);
                     }
                 ]);

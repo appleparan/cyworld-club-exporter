@@ -120,7 +120,10 @@ async.waterfall([
                                             }
                                         });
 
-                                        fs.writeFile("./freetalk/comment_" + entry.idx + ".txt", JSON.stringify(result));
+                                        fs.writeFile("./freetalk/comment_" + entry.idx + ".txt", JSON.stringify(result), (err) => {
+                                          if (err) throw err;
+                                          console.log('The file has been saved!');
+                                        });
                                         nextComment();
                                     });
                                 });

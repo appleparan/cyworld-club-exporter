@@ -40,7 +40,10 @@ async.waterfall([
 
     function (cookies, result, callback) {
         console.log('get page count');
-        fs.writeFile('result/article_list_1.txt', JSON.stringify(result.articles));
+        fs.writeFile('result/article_list_1.txt', JSON.stringify(result.articles), (err) => {
+				  if (err) throw err;
+				  console.log('The file has been saved!');
+				});
 
         var queue = [];
         for (var i = 2; i <= result.maxPage; i++) {
@@ -63,7 +66,10 @@ async.waterfall([
                         require('./core/parseArticleList')(cookies, data, subroutine);
                     },
                     function (cookies, result) {
-                        fs.writeFile('result/article_list_' + pageNo + '.txt', JSON.stringify(result.articles));
+                        fs.writeFile('result/article_list_' + pageNo + '.txt', JSON.stringify(result.articles), (err) => {
+                				  if (err) throw err;
+                				  console.log('The file has been saved!');
+                        });
                         setTimeout(next, 2000);
                     }
                 ]);

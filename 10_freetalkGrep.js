@@ -93,6 +93,9 @@ async.waterfall([
 
     function (data) {
         var fs = require('fs');
-        fs.writeFile('./result/freetalk_' + pageNo + '.txt', JSON.stringify(data));
+        fs.writeFile('./result/freetalk_' + pageNo + '.txt', JSON.stringify(data), (err) => {
+          if (err) throw err;
+          console.log('The file has been saved!');
+        });
     }
 ]);

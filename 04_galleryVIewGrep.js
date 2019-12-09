@@ -83,11 +83,17 @@ async.waterfall([
 
                     function (cookies, articleNo, data, subroutine) {
                         console.log('parsing article - ' + articleNo);
+                        var cheerio = require('cheerio');
+                        var $ = cheerio.load(data);
+
                         require('./core/parseGalleryView')(cookies, articleNo, data, subroutine);
                     },
 
                     function (cookies, articleNo, contents) {
-                        fs.writeFile('result/gallery_view_' + articleNo + '.txt', JSON.stringify(contents));
+                        fs.writeFile('result/gallery_view_' + articleNo + '.txt', JSON.stringify(contents), (err) => {
+                          if(err) throw err;
+                          console.log('The file has been saved!');
+                        });
                         setTimeout(next, 1000);
                     }
                 ]);

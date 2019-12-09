@@ -62,7 +62,10 @@ async.waterfall([
                         }
 
                         if (0 < queue.length) {
-                            fs.writeFile("./result/" + saveName, JSON.stringify(queue));
+                            fs.writeFile("./result/" + saveName, JSON.stringify(queue), (err) => {
+                              if (err) throw err;
+                              console.log('The file has been saved!');
+                            });
                         }
 
                         next();
